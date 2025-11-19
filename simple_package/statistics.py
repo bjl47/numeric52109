@@ -110,3 +110,80 @@ def plot_histogram(data, bins=20):
     plt.legend()
     plt.grid(alpha=0.3)
     plt.show()
+
+# -------------------------
+# function to read data from file
+# -------------------------
+
+def read_data_from_file(file_path):
+    """
+    Reads numbers from a text or CSV file and returns a numpy array.
+    Assumes numbers are separated by commas, spaces, or newlines.
+    """
+    try:
+        with open(file_path, "r") as f:
+            content = f.read()
+
+        # Split by commas, spaces, or newlines
+        import re
+        numbers = re.split(r"[,\s]+", content.strip())
+
+        # Convert to floats
+        data = [float(x) for x in numbers if x != '']
+        return _ensure_array(data)
+
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+        return None
+    except ValueError:
+        print("File contains non-numeric data.")
+        return None
+    except Exception as e:
+        print("Error reading file:", e)
+        return None
+
+
+# -------------------------
+# function to prompt user for input -- user either enters data manually or reads from a file
+# -------------------------
+
+def run_statistics():
+    """
+    Interactive interface for user to input data or read from a file.
+    """
+    print("Statistics Tool")
+    print("1. Enter data manually")
+    print("2. Read data from a file")
+    print("Type 'exit' to quit.\n")
+
+    while True:
+        choice = input("Choose an option (1, 2, exit): ").strip().lower()
+        if choice == "exit":
+            print("Exiting statistics tool.")
+            break
+
+        if choice == "1":
+            user_input = input("Enter your data as numbers separated by commas: ")
+            try:
+                data = [float(x) for x in user_input.split(",")]
+                arr = _ensure_array(data)
+            except Exception as e:
+                print("Error:", e)
+                continue
+
+        elif choice == "2":
+            file_path = input("Enter the path to your data file: ").strip()
+            arr = read_data_from_file(file_path)
+            if arr is None:
+                continue  # error reading file, retry
+
+        else:
+            print("Invalid choice. Try again.\n")
+            continue
+
+        # Print stats and plot
+        pretty_print_stats(arr)
+        plot_histogram(arr)
+
+if __name__ == "__main__":
+    run_statistics()

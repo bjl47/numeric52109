@@ -28,7 +28,7 @@
 # adding math module for complicated operations
 import math 
 
-def add(a, b):
+def add(a,b):
     """Add two numbers."""
     return a + b
 
@@ -43,7 +43,7 @@ def multiply(a, b):
 def divide(a, b):
     """Divide one number by another."""
     # adding this line for exception handling
-        if b == 0:
+    if b == 0:
         raise ZeroDivisionError("Cannot divide by zero.")
     return a / b
 
@@ -115,3 +115,6 @@ def run_calculator():
         except Exception as e:
             print("Error:", e)
             print("Please try again.\n")
+
+if __name__ == "__main__":
+    run_calculator()

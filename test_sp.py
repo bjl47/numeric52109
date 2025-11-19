@@ -3,7 +3,7 @@
 ## Execute as 'python test_sp.py'
 ###
 
-import simple_package as sp
+from simple_package import operations
 
 if __name__ == '__main__':
     ## Define two numbers
@@ -14,4 +14,7 @@ if __name__ == '__main__':
     print(f"The sum of {a} and {b} is {a + b}")
 
     ## Now do the same for the function in sp
-    print(f"The product of {a} and {b} is {sp.add(a,b)}")
+    print(f"The product of {a} and {b} is {operations.multiply(a,b)}")
+
+    # Note from editor: I have corrected the import line to specify the file - Line 6
+    # Note from editor: I have also corrected the function from line 17
